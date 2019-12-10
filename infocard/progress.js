@@ -6,14 +6,24 @@ import Highcharts from "highcharts/highcharts.js";
 import highchartsMore from "highcharts/highcharts-more.js";
 import solidGauge from "highcharts/modules/solid-gauge.js";
 import HighchartsReact from "highcharts-react-official";
+import Button from '@material-ui/core/Button';
+
+import Checklists from './checklist'
 
 highchartsMore(Highcharts);
 solidGauge(Highcharts);
 
 const options = {
   chart: {
-    type: "solidgauge"
+    type: "solidgauge",    
   },  
+   title: {
+        text: 'Compliance Check',
+        style: {
+            fontSize: '24px'
+        }
+    },
+  
   pane: {
         center: ['50%', '50%'],
         size: '100%',
@@ -24,15 +34,11 @@ const options = {
      yAxis: {
         min: 0,
         max: 200,
-        title: {
-            text: 'Completed',
-            y: 70,
-        }
     },
 
   series: [
     { name:'Completed',
-      data: [20],
+      data: [40],
        dataLabels: {
             format:'{y:.1f} %'
         },
@@ -42,16 +48,32 @@ const options = {
     }
   ]
 };
- 
+const showthis = false;
 
+ function  showchecklist(event){
+   
+  //  console.log('clicked');
+    render(  <Checklists/> , document.getElementById('checklist'));
+
+  };
 const Progresscard =(props)=>{
+  
+  
+
+
   // console.log(props.info[0])
   return(
-    <div className="container mt-3">
+    <div className="container mt-3 text-center">
        <HighchartsReact highcharts={Highcharts} options={options} />   
+      <br/>
+        <Button variant="contained" onClick={()=> showchecklist(event)} color="primary">CheckList</Button>
       
+      <div id="checklist" className="my-4"></div>
+
     </div>
   );
 }
+
+
 
 export default Progresscard;
